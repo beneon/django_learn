@@ -45,3 +45,9 @@
 1. SignUpView 继承 CreateView，作为注册这一用途，常规需要提供form_class, success_url以及template_name。
 2. blogs app中也继承过 CreateView，但是当时是设置了model 和 fields
 
+## forms
+
+使用原先的UserCreationForm.Meta.fields + (...)的办法只能覆盖少数的几个field，包括username和password，但是我们还需要email，可能也需要first_name和last_name（这些可以在abstractUser的model定义里看到），所以直接使用一个tuple列举各个fieldname可能还更好
+
+
+
