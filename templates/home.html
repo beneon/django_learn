@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}主页{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+    {{user.username}}，你好
+    <p><a href="{% url 'logout' %}">登出</a></p>
+{% else %}
+    <p>你尚未登录</p>
+    <a href="{% url 'login' %}">登录</a> | <a href="{% url 'signup' %}">注册</a>
+{% endif %}
+{% endblock %}
