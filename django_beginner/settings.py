@@ -37,6 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # 3rd party
+    'crispy_forms',
+
+    # local
     'users.apps.UsersConfig',
     'pages.apps.PagesConfig',
 ]
@@ -121,11 +126,12 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR,'static'),
+    os.path.join(BASE_DIR,'sØtatic'),
 ]
 
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
 
 AUTH_USER_MODEL = 'users.CustomUser'
-# TODO: home url还没有定义
+
+CRISPY_TEMPLATE_PACK = "bootstrap4"

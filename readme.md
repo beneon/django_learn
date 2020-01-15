@@ -58,3 +58,27 @@
 1. 首先新建一个pages app替换掉之前home指向的TemplateView, project层面，修改settings和urls
 2. 在pages app中建立urls， 修改views
 3. test: django自带的功能是不需要测试的，自建的功能就需要测试。书中以template页面作为单位考虑测试，需要测试的页面包括home和signup两个页面
+4. 从url出发, hard coded url和以name reverse得出的url两方面都要测试, template used也应该测试
+    note: hard coded url末尾需要加上`/`, 否则肯定出错的
+   
+## Bootstrap
+
+bootstrap建议使用cdn在线读取, 国内也有资源. 应该载入的资源包括:
+
+• Bootstrap.css
+• jQuery.js
+• Popper.js
+• Bootstrap.js 
+
+主要的修改都集中在base.html里面. 添加了一个navbar. 接下来要对signup form作一些修正. 书里面使用的是第三方库 django-crispy-forms
+
+使用步骤:
+
+1. 安装django-crispy-forms (via. pip)
+2. 在settings中将`'crispy_forms',`加入installed apps, 同时由于我们使用了bootstrap4而不是默认的bootstrap2, 需要添加`CRISPY_TEMPLATE_PACK = "bootstrap4"`
+3. 在template文件中, 顶端加入:`{% load crispy_forms_tags %}`, 原先的`{{form.as_p}}`修正成`{{form|crispy}}`就可以了.
+
+crispy form还有更丰富的功能, 不过目前暂时不作深入学习
+
+---
+
