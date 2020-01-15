@@ -86,6 +86,25 @@ crispy form还有更丰富的功能, 不过目前暂时不作深入学习
 
 这个是auth.urls的urlpatterns中剩下的几个东西. 实际上django已经有修改密码以及密码重设的模板了, 现在需要做的是自己建相应的模板. 这些模板文件都放在registration文件夹中
 
-password change, password change done这两个页面不需要做太多
+## 密码修改
 
-password reset这一块需要额外设置如何发送邮件. sendgrid
+password change, password change done这两个页面不需要做太多
+    顺带一提，password_change不能直接通过users/password_change进入，因为这个是给已登录用户才开发的。
+
+password reset这一块需要额外设置如何发送邮件. sendgrid是一个可行的工具，但是国内的适用性还有待论证。实际上sendcloud应该是更好用的，人家一天限量10封，基本上是应该够用的了（开发阶段）。生产阶段的话肯定就要花钱去订阅了……或者手工？毕竟大家都喜欢把密码设置成123456……
+
+## 密码重置
+
+重设这里，我发现走完步骤以后，点击登录的时候会报错，这是因为这时候系统会跳转到accounts/login，但是accouts这一系列的url在project级别没有注册过，所以要添加进来，当然可以继续用`django.contrib.auth.urls`来做
+
+### 模板
+
+- password_rest_form.html
+- password_rest_done.html
+- password_rest_confirm.html
+- password_rest_complete.html
+
+---
+
+# email和sendcloud/sendgrid
+
