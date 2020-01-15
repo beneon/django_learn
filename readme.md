@@ -82,3 +82,10 @@ crispy form还有更丰富的功能, 不过目前暂时不作深入学习
 
 ---
 
+# 密码修改与重设
+
+这个是auth.urls的urlpatterns中剩下的几个东西. 实际上django已经有修改密码以及密码重设的模板了, 现在需要做的是自己建相应的模板. 这些模板文件都放在registration文件夹中
+
+password change, password change done这两个页面不需要做太多
+
+password reset这一块需要额外设置如何发送邮件. sendgrid
