@@ -49,5 +49,12 @@
 
 使用原先的UserCreationForm.Meta.fields + (...)的办法只能覆盖少数的几个field，包括username和password，但是我们还需要email，可能也需要first_name和last_name（这些可以在abstractUser的model定义里看到），所以直接使用一个tuple列举各个fieldname可能还更好
 
+---
 
+# bootstrap
 
+## 前续工作收尾
+
+1. 首先新建一个pages app替换掉之前home指向的TemplateView, project层面，修改settings和urls
+2. 在pages app中建立urls， 修改views
+3. test: django自带的功能是不需要测试的，自建的功能就需要测试。书中以template页面作为单位考虑测试，需要测试的页面包括home和signup两个页面
