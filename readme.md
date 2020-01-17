@@ -132,5 +132,14 @@ articles app 和之前的blogs相似。编写的过程肯定也是：
 
 1. urls：依靠`<int:pk>/.../`设置url。
 2. views方面，注意ListView和DetailView来自 generic， 而DeleteView以及UpdateView来自 generic.edit。
-    todo：能否从generic导入DeleteView与UpdateView?
+    todo：能否从generic导入DeleteView与UpdateView: 经过测试, 直接从generic也是可以导入的, 所以到底有什么区别呢? 包括model的继承, 有人写models.Model, 但是models好像也可以?
+3. 其实想一下, 各种view的写法真的差不多, 但是为什么可以实现各自的功能呢? 这不全靠着各种**generic view**么?
+
+---
+
+# 认证与鉴权
+
+## create view 的修改
+
+1. author应该是当前用户
 
