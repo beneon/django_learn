@@ -6,12 +6,13 @@ from django.urls import reverse
 
 
 class Article(models.Model):
-    title = models.CharField(max_length=255)
-    body = models.TextField()
-    date = models.DateTimeField(auto_now_add=True)
+    title = models.CharField(max_length=255, verbose_name='标题')
+    body = models.TextField(verbose_name='内容')
+    date = models.DateTimeField(auto_now_add=True, verbose_name='时间')
     author = models.ForeignKey(
         get_user_model(),
         on_delete=models.CASCADE,
+        verbose_name='作者'
     )
 
     def __str__(self):

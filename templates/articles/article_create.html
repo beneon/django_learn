@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}新建文章{% endblock %}
+
+{% block content %}
+<h2>新建文章</h2>
+<form action="" method="post">
+    {% csrf_token %}
+    {{form|crispy}}
+    <button class="btn btn-info ml-2" type="submit">保存</button>
+</form>
+{% endblock %}

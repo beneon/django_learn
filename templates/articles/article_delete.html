@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}{{article.title}}{% endblock %}
+
+{% block content %}
+
+    <h2>删除</h2>
+    <form action="" method="post">
+        {% csrf_token %}
+       <p>请确认要删除{{article.title}}</p>
+        <button class="btn btn-danger ml-2" type="submit">删除</button>
+    </form>
+
+
+{% endblock content%}

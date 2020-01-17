@@ -114,3 +114,23 @@ password reset这一块需要额外设置如何发送邮件. sendgrid是一个�
 
 # app实际内容的编写
 
+articles app 和之前的blogs相似。编写的过程肯定也是：
+
+1. models
+2. template， views， urls
+    1. urls包括project level的include，以及app level的urlpatterns
+    2. views 目前包括一个ListView
+3. template中：
+    1. object_list, 当然也可以通过context_object_name (views.py) 设置
+    2. 用的是bootstrap的card这个对象。建议进一步阅读。
+    3. 行内文本分区使用span
+    4. 不同区域（题目，正文以及辅助区域）的分区使用的是div
+
+另外，crispy forms如果只是用filter恐怕还是不能很好的排版，看来还是要学习form helper才行
+
+## 添加edit，delete与list功能
+
+1. urls：依靠`<int:pk>/.../`设置url。
+2. views方面，注意ListView和DetailView来自 generic， 而DeleteView以及UpdateView来自 generic.edit。
+    todo：能否从generic导入DeleteView与UpdateView?
+
