@@ -143,3 +143,5 @@ articles app 和之前的blogs相似。编写的过程肯定也是：
 
 1. author应该是当前用户
 
+在书中这个功能是借助form_valid()函数做的。但是具体原理书中语焉不详。这一块肯定要看一下django 文档中关于form的部分，另外最好也把crispy form一起看了。
+
