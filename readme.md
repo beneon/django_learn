@@ -145,3 +145,81 @@ articles app 和之前的blogs相似。编写的过程肯定也是：
 
 在书中这个功能是借助form_valid()函数做的。但是具体原理书中语焉不详。这一块肯定要看一下django 文档中关于form的部分，另外最好也把crispy form一起看了。
 
+2. 鉴权
+
+class based views需要class mixin来提供鉴权功能
+
+**LoginRequiredMixin** : 只有登录用户才能进入的view
+**UserPassesTestMixin** : 对用户权限进一步细分. test指的是test_func, 需要手动override
+
+```python
+    def test_func(self):
+        obj = self.get_object()
+        return obj.author == self.request.user
+```
+
+test_func中使用的get_object:
+
+> get_object(queryset=None)
+Returns **the single object that this view will display**. If queryset is provided, that queryset will be used as the source of objects; otherwise, get_queryset() will be used. get_object() looks for a pk_url_kwarg argument in the arguments to the view; if this argument is found, this method performs a primary-key based lookup using that value. If this argument is not found, it looks for a slug_url_kwarg argument, and performs a slug lookup using the slug_field.
+
+> When query_pk_and_slug is True, get_object() will perform its lookup using both the primary key and the slug.
+
+注意 **self.request**, 而且request里面还有user?
+
+request.user除了可以在view里面使用, template里面也是可以的
+
+至于书中说的编辑/删除在非当前用户写作文章记录里不予显示, 这个功能用不上custom template tag, 使用 {% if request.user == article.author %}就可以了. custom template tag确实有用, 但是不是用在这个功能上面
+
+顺便说一下书里面也没有给article写test. 不过等我们跟着comment一章走完以后其实这一个学习project就算走完了, 接下来应该开始着手做会议系统了.
+
+---
+
+# comments
+
+这里主要是一个inline form
+
+虽然书中说新建一个app是over engineering, 不过我们还是尝试一下.
+
+custom user那里的admin class:
+
+```python
+class CustomUserAdmin(UserAdmin):
+    add_form = CustomUserCreationForm
+    form = CustomUserChangeForm
+    model = CustomUser
+    list_display = ['email','username','age','is_staff','desc']
+
+```
+如果跟踪UserAdmin看过去可以发现, 这个class继承的是admin.ModelAdmin, 所以对于article和comment, 都可以自建一个admin class, 调节list_display, 而具体到编辑页面, 还能够添加inline编辑功能:
+
+```python
+class CommentInline(admin.TabularInline):
+    model = Comment
+    extra = 1
+
+
+class ArticleAdmin(admin.ModelAdmin):
+    model = Article
+    list_display = ['title','date','author']
+    inlines = [
+        CommentInline
+    ]
+
+admin.site.register(Article, ArticleAdmin)
+```
+
+注意上面实现步骤, 首先建立一个inline Class, 继承于admin的TabularInline/ StackedInline. 然后在ArticleAdmin里面的inlines field将其纳入
+
+至于对inline class 的微调(额外显示的条目数), 自然是在inline class的内部
+
+## template方面
+
+这里第一次遇到反向查找. 之前我们是从一个object通过foreignkey找到它的宗主, 比如从article找到author. 但是现在我们是从article找到comments, article在这里是comment的宗主, 对于这种反向查找可以使用`query_set`
+
+query_set在具体使用时是foo_set, 而foo则是对面model的名称的小写, 所以这里应该是comment_set. 和context_object_name一样, 这里也可以手动设置一个容易理解的名称作为query_set使用.
+
+---
+
+这个书的学习记录就到此为止了
+
