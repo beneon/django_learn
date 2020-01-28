@@ -21,7 +21,7 @@
     2. TEMPLATES.DIRS
     3. LANGUAGE_CODE, 一般设置为zh-hans
     4. TIME_ZONE = 'Asia/Chongqing'
-    5. STATICFILES_DIRS，LOGIN_REDIRECT_URL，LOGOUT_REDIRECT_URL
+    5. STATICFILES_DIRS， LOGIN_REDIRECT_URL，LOGOUT_REDIRECT_URL
     6. 如果按照该书的方式以custom user model扩展用户模型，还需要AUTH_USER_MODEL
     7. 使用crispy forms优化form，如果用的不是默认的bootstrap2，就需要额外设置CRISPY_TEMPLATE_PACK
     8. EMAIL_BACKEND需要设置，供发送transactional email使用。在dev阶段可以用`EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'`
